@@ -1,0 +1,7 @@
+torch>=2.1
+transformers>=4.40
+pyyaml
+tqdm
+numpy
+sacrebleu
+bert-score

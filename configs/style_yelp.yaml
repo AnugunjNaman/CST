@@ -1,0 +1,55 @@
+# Naman, CustomNLP4U 2024, §4 (Yelp sentiment transfer)
+task: style_yelp
+
+base_model: bert-base-uncased
+# Sampling discriminator. Paper trains a private BERT on Yelp; this public
+# checkpoint is the paper's *external* classifier. Swap in a held-out
+# checkpoint to split Int. vs Ext. Clsf. the way Table 1 does.
+disc_model: textattack/bert-base-uncased-yelp-polarity
+external_clf: textattack/bert-base-uncased-yelp-polarity
+grammar_clf: textattack/roberta-base-CoLA
+
+mlm_weight: 1.0
+disc_weight: 200.0
+hamm_weight: 300.0
+mlm_score: logits
+disc_score: logits
+
+# 4 sites / step as in §3.3. Joint block-MH fools the classifier; sitewise MH does not.
+n_flips: 4
+num_steps: 150
+cycle_length: 150
+eta_max: 0.07
+eta_min: 0.03
+temperature: 2.0
+schedule: cosine_minmax
+force_flip: false
+top_k: 30
+amp: true
+batch_size: 16
+adaptive_eta: true
+target_flip: 0.35
+target_accept: 0.35
+eta_adapt_min: 0.02
+eta_adapt_max: 2.0
+adapt_lr: 0.05
+escape_mode: true
+max_accepts: 1
+# Convex Hamming: edit #2 costs 3x edit #1, so the equilibrium keeps the
+# single best edit found (paper Table 1 profile, Hamming ~1.2).
+hamm_shape: convex
+hamm_budget: 2
+select: best  # keep the highest-U state visited (argmax over ~600 proposals)
+
+max_length: 32
+n_chains: 1
+seed: 0
+device: cuda:0
+
+source_file: data/style_yelp/data.txt
+ref_file: data/style_yelp/ref.txt
+output_file: outputs/style_yelp/gen.txt
+
+block_unused: true
+block_special: true
+english_only: false
