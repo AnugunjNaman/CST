@@ -1,17 +1,16 @@
 # DLP Text Style Transfer
 
-Reference implementation of the discrete Langevin style-transfer sampler from
-[*Customized Style Transfer using Discrete Sampling*](https://aclanthology.org/2024.customnlp4u-1.12/)
-(Anugunj Naman, CustomNLP4U 2024):
-a product-of-experts energy `U = α_mlm·BERT-MLM + α_disc·sentiment − Φ(Hamming)`
+Reference implementation for [*Customized Style Transfer using Discrete Sampling*](https://aclanthology.org/2024.customnlp4u-1.12/):
+
+A product-of-experts energy `U = α_mlm·BERT-MLM + α_disc·sentiment − Φ(Hamming)`
 sampled with Metropolis–Hastings, with per-site adaptive step size and convex
-Hamming pricing. Self-contained; PyTorch only.
+Hamming pricing.
 
 On the full 1000-sentence Yelp test it reproduces the paper's Table 1 profile:
 BLEU 22.93 (21.19) · BERTScore 0.958 (0.97) · Hamming 1.43 (1.23) · Clsf. 97.4 (85.2),
 at ~0.37 s/sample on 2× L40S.
 
-If you use this code, please cite the paper above.
+If you use this code, please cite the paper below.
 
 ## Implementation notes
 
@@ -55,12 +54,9 @@ paste -d'\n' outputs/style_yelp/gen.txt.shard0of2 outputs/style_yelp/gen.txt.sha
     title = "Customized Style Transfer using Discrete Sampling",
     author = "Naman, Anugunj",
     booktitle = "Proceedings of the 1st Workshop on Customizable {NLP}: Progress and Challenges in Customizing {NLP} for a Domain, Application, Group, or Individual ({C}ustom{NLP}4{U})",
-    month = nov,
     year = "2024",
-    address = "Miami, Florida, USA",
     publisher = "Association for Computational Linguistics",
     url = "https://aclanthology.org/2024.customnlp4u-1.12/",
     doi = "10.18653/v1/2024.customnlp4u-1.12",
-    pages = "150--155"
 }
 ```
