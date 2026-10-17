@@ -47,3 +47,20 @@ CUDA_VISIBLE_DEVICES=1 python main.py --config configs/style_yelp.yaml --shard 1
 wait
 paste -d'\n' outputs/style_yelp/gen.txt.shard0of2 outputs/style_yelp/gen.txt.shard1of2 > outputs/style_yelp/gen.txt
 ```
+
+## Citation
+
+```bibtex
+@inproceedings{naman-2024-customized,
+    title = "Customized Style Transfer using Discrete Sampling",
+    author = "Naman, Anugunj",
+    booktitle = "Proceedings of the 1st Workshop on Customizable {NLP}: Progress and Challenges in Customizing {NLP} for a Domain, Application, Group, or Individual ({C}ustom{NLP}4{U})",
+    month = nov,
+    year = "2024",
+    address = "Miami, Florida, USA",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.customnlp4u-1.12/",
+    doi = "10.18653/v1/2024.customnlp4u-1.12",
+    pages = "150--155"
+}
+```
